@@ -298,7 +298,7 @@ Data type: `Boolean`
 
 
 
-Default value: `simplib::lookup('simp_options::auditd', { 'default_value' => false})`
+Default value: `simplib::lookup('simp_options::auditd', { 'default_value' => false })`
 
 ##### <a name="-sssd--pki"></a>`pki`
 
@@ -316,7 +316,7 @@ Data type: `Variant[Boolean,Enum['simp']]`
   * app_pki_ca
   * app_pki_ca_dir
 
-Default value: `simplib::lookup('simp_options::pki', { 'default_value' => false})`
+Default value: `simplib::lookup('simp_options::pki', { 'default_value' => false })`
 
 ##### <a name="-sssd--app_pki_cert_source"></a>`app_pki_cert_source`
 
@@ -327,7 +327,7 @@ Data type: `Stdlib::Absolutepath`
 
 * If pki = false, this variable has no effect.
 
-Default value: `simplib::lookup('simp_options::pki::source', { 'default_value' => '/etc/pki/simp/x509'})`
+Default value: `simplib::lookup('simp_options::pki::source', { 'default_value' => '/etc/pki/simp/x509' })`
 
 ##### <a name="-sssd--app_pki_dir"></a>`app_pki_dir`
 
@@ -374,6 +374,9 @@ in the ``[sssd]`` section.
 The following parameters are available in the `sssd::config` class:
 
 * [`authoritative`](#-sssd--config--authoritative)
+* [`manage_base_domain`](#-sssd--config--manage_base_domain)
+* [`sssd_config_dir_mode`](#-sssd--config--sssd_config_dir_mode)
+* [`sssd_config_file_params`](#-sssd--config--sssd_config_file_params)
 
 ##### <a name="-sssd--config--authoritative"></a>`authoritative`
 
@@ -382,6 +385,26 @@ Data type: `Boolean`
 Set to `true` to purge unmanaged configuration files
 
 Default value: `pick(getvar("${module_name}::authoritative"), false)`
+
+##### <a name="-sssd--config--manage_base_domain"></a>`manage_base_domain`
+
+Data type: `Boolean`
+
+EL10+ requires a domain to be configured in order for SSSD to start.
+This parameter will be managed in hieradata by default.
+
+##### <a name="-sssd--config--sssd_config_dir_mode"></a>`sssd_config_dir_mode`
+
+Data type: `String`
+
+The mode to set on the /etc/sssd/conf.d directory
+
+##### <a name="-sssd--config--sssd_config_file_params"></a>`sssd_config_file_params`
+
+Data type: `Hash`
+
+A hash of parameters to apply to all files managed in /etc/sssd and /etc/sssd/conf.d.
+This should include at least the owner, group, and mode parameters.
 
 ### <a name="sssd--config--ipa_domain"></a>`sssd::config::ipa_domain`
 
@@ -436,11 +459,11 @@ The following parameters are available in the `sssd::install::client` class:
 
 ##### <a name="-sssd--install--client--ensure"></a>`ensure`
 
-Data type: `Any`
+Data type: `String`
 
 Ensure setting for 'sssd-client' package
 
-Default value: `$::sssd::install::package_ensure`
+Default value: `$sssd::install::package_ensure`
 
 ### <a name="sssd--pki"></a>`sssd::pki`
 
@@ -1209,6 +1232,7 @@ The following parameters are available in the `sssd::service::sudo` class:
 * [`sudo_threshold`](#-sssd--service--sudo--sudo_threshold)
 * [`sudo_timed`](#-sssd--service--sudo--sudo_timed)
 * [`custom_options`](#-sssd--service--sudo--custom_options)
+* [`manage_group_dropin_file`](#-sssd--service--sudo--manage_group_dropin_file)
 
 ##### <a name="-sssd--service--sudo--description"></a>`description`
 
@@ -1272,6 +1296,12 @@ No error checking will be performed.
 
 Default value: `undef`
 
+##### <a name="-sssd--service--sudo--manage_group_dropin_file"></a>`manage_group_dropin_file`
+
+Data type: `Boolean`
+
+If true, a systemd drop-in file will be created to ensure the sssd-sudo service runs as root.
+
 ## Defined types
 
 ### <a name="sssd--config--entry"></a>`sssd::config::entry`
@@ -1302,7 +1332,7 @@ The content of the target file
 
 Data type: `Integer[0]`
 
-
+The order in which the file should be processed
 
 Default value: `50`
 
@@ -1376,6 +1406,7 @@ The following parameters are available in the `sssd::domain` defined type:
 * [`proxy_pam_target`](#-sssd--domain--proxy_pam_target)
 * [`proxy_lib_name`](#-sssd--domain--proxy_lib_name)
 * [`ldap_user_search_filter`](#-sssd--domain--ldap_user_search_filter)
+* [`custom_options`](#-sssd--domain--custom_options)
 
 ##### <a name="-sssd--domain--name"></a>`name`
 
@@ -1729,6 +1760,19 @@ Default value: `undef`
 Data type: `Optional[String]`
 
 
+
+Default value: `undef`
+
+##### <a name="-sssd--domain--custom_options"></a>`custom_options`
+
+Data type: `Optional[Hash]`
+
+If defined, this hash will be used to create the service
+section instead of the parameters.  You must provide all options
+in the section you want to add.  Each entry in the hash will be
+added as a simple init pair key = value under the section in
+the sssd.conf file.
+No error checking will be performed.
 
 Default value: `undef`
 

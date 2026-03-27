@@ -7,11 +7,13 @@
 #
 # @param content
 #   The content of the target file
+# @param order
+#   The order in which the file should be processed
 #
-define sssd::config::entry(
+define sssd::config::entry (
   String     $content,
-  Integer[0] $order    = 50
-){
+  Integer[0] $order = 50,
+) {
   assert_private()
 
   if $title =~ /\// {
@@ -24,10 +26,8 @@ define sssd::config::entry(
   $_safe_filename = simplib::safe_filename("${order}_${title}.conf")
 
   file { "/etc/sssd/conf.d/${_safe_filename}":
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0600',
+    *       => $sssd::config::sssd_config_file_params,
     content => $content,
-    notify  => Class["${module_name}::service"]
+    notify  => Class["${module_name}::service"],
   }
 }
