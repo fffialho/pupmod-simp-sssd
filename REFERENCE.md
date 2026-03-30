@@ -33,7 +33,7 @@
 
 ### Functions
 
-* [`sssd::supported_version`](#sssd--supported_version): Returns ``true`` if the version of SSSD installed on the system is supported and ``false`` otherwise.  Assumes that the system is relatively 
+* [`sssd::supported_version`](#sssd--supported_version): Returns ``true`` if the version of SSSD installed on the system is supported and ``false`` otherwise.  Assumes that the system is relatively
 
 ### Data types
 
@@ -2873,6 +2873,8 @@ The following parameters are available in the `sssd::provider::ldap` defined typ
 * [`ldap_network_timeout`](#-sssd--provider--ldap--ldap_network_timeout)
 * [`ldap_opt_timeout`](#-sssd--provider--ldap--ldap_opt_timeout)
 * [`ldap_connection_expire_timeout`](#-sssd--provider--ldap--ldap_connection_expire_timeout)
+* [`ldap_connection_expire_offset`](#-sssd--provider--ldap--ldap_connection_expire_offset)
+* [`ldap_connection_idle_timeout`](#-sssd--provider--ldap--ldap_connection_idle_timeout)
 * [`ldap_page_size`](#-sssd--provider--ldap--ldap_page_size)
 * [`ldap_disable_paging`](#-sssd--provider--ldap--ldap_disable_paging)
 * [`ldap_disable_range_retrieval`](#-sssd--provider--ldap--ldap_disable_range_retrieval)
@@ -3559,6 +3561,22 @@ Data type: `Optional[Integer[0]]`
 Default value: `undef`
 
 ##### <a name="-sssd--provider--ldap--ldap_connection_expire_timeout"></a>`ldap_connection_expire_timeout`
+
+Data type: `Optional[Integer[0]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-sssd--provider--ldap--ldap_connection_expire_offset"></a>`ldap_connection_expire_offset`
+
+Data type: `Optional[Integer[0]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-sssd--provider--ldap--ldap_connection_idle_timeout"></a>`ldap_connection_idle_timeout`
 
 Data type: `Optional[Integer[0]]`
 
@@ -4255,4 +4273,3 @@ Alias of `Enum['never', 'allow', 'try', 'demand', 'hard']`
 List of available sssd services
 
 Alias of `Array[Enum['nss','pam','sudo','autofs','ssh','pac','ifp']]`
-

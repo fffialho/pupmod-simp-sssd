@@ -114,6 +114,7 @@
 # @param ldap_network_timeout
 # @param ldap_opt_timeout
 # @param ldap_connection_expire_timeout
+# @param ldap_connection_expire_offset
 # @param ldap_connection_idle_timeout
 # @param ldap_page_size
 # @param ldap_disable_paging
@@ -272,6 +273,7 @@ define sssd::provider::ldap (
   Optional[Integer[0]]                  $ldap_network_timeout              = undef,
   Optional[Integer[0]]                  $ldap_opt_timeout                  = undef,
   Optional[Integer[0]]                  $ldap_connection_expire_timeout    = undef,
+  Optional[Integer[0]]                  $ldap_connection_expire_offset     = undef,
   Optional[Integer[0]]                  $ldap_connection_idle_timeout      = undef,
   Optional[Integer[0]]                  $ldap_page_size                    = undef,
   Boolean                               $ldap_disable_paging               = false,
@@ -460,6 +462,7 @@ define sssd::provider::ldap (
     'ldap_network_timeout',
     'ldap_opt_timeout',
     'ldap_connection_expire_timeout',
+    'ldap_connection_expire_offset',
     'ldap_connection_idle_timeout',
     'ldap_page_size',
     'ldap_disable_paging',
@@ -607,6 +610,7 @@ define sssd::provider::ldap (
     'ldap_network_timeout'                       => $ldap_network_timeout,
     'ldap_opt_timeout'                           => $ldap_opt_timeout,
     'ldap_connection_expire_timeout'             => $ldap_connection_expire_timeout,
+    'ldap_connection_expire_offset'              => $ldap_connection_expire_offset,
     'ldap_connection_idle_timeout'               => $ldap_connection_idle_timeout,
     'ldap_page_size'                             => $ldap_page_size,
     'ldap_disable_paging'                        => $ldap_disable_paging,
