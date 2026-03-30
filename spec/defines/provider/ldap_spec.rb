@@ -208,6 +208,7 @@ describe 'sssd::provider::ldap' do
             ldap_chpass_dns_service_name: 'my_ldap_chpass_dns_service_name',
             ldap_chpass_uri: ['ldap://chpass1.example.domain', 'ldap://chpass2.example.domain'],
             ldap_connection_expire_timeout: 4,
+            ldap_connection_idle_timeout: 4,
             ldap_default_authtok_type: 'password',
             ldap_deref_threshold: 5,
             ldap_deref: 'finding',
@@ -335,6 +336,7 @@ describe 'sssd::provider::ldap' do
             ldap_chpass_update_last_change = true
             ldap_chpass_uri = ldap://chpass1.example.domain,ldap://chpass2.example.domain
             ldap_connection_expire_timeout = 4
+            ldap_connection_idle_timeout = 4
             ldap_default_authtok = sup3r$3cur3P@ssw0r?
             ldap_default_authtok_type = password
             ldap_default_bind_dn = cn=hostAuth,ou=Hosts,dc=example,dc=domain
